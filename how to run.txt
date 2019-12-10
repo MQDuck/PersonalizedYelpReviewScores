@@ -1,5 +1,7 @@
-1. run user_review_counts.py
-2. set NUM_USERS in select_users.py
+1. set parameters in parameters.py
+2. run user_review_counts.py
 3. run select_users.py
 4. run select_businesses.py
 5. run select_reviews.py
+6. run topic.extract_corpus.py
+6. run topic.train.py
