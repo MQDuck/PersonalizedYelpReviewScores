@@ -1,5 +1,5 @@
 # select_users
-NUM_USERS = 1000
+NUM_USERS = 5
 
 # topic
 NO_BELOW = 15

@@ -3,5 +3,6 @@
 3. run select_users.py
 4. run select_businesses.py
 5. run select_reviews.py
-6. run topic.extract_corpus.py
-6. run topic.train.py
+~6. run topic.extract_corpus.py
+7. run topic.train.py
+8. run train_user_weights.py

@@ -10,24 +10,25 @@ corpus = []
 for line in tqdm(review_file, total=6685900):
     review = json.loads(line)
     business = review['business_id']
-    user = review['user_id']
-    text = review['text']
-    stars = review['stars']
     if business in businesses:
+        user = review['user_id']
+        text = review['text']
+        stars = review['stars']
+        entry = {'text': text, 'stars': stars}
         if business in reviews:
-            business_reviews = reviews[business]
+            reviews[business][user] = entry
         else:
-            business_reviews = {}
-            reviews[business] = business_reviews
-        entry = {'stars': stars, 'text': text}
-        if user in business_reviews:
-            business_reviews[user].append(entry)
-        else:
-            business_reviews[user] = [entry]
+            reviews[business] = {user: entry}
 
         corpus.append(text)
 
-json.dump(reviews, open('data/reviews.json', 'w', encoding='utf8'))
+# json.dump(reviews[len(reviews)//5:], open('data/business_reviews_train.json', 'w', encoding='utf8'))
+# json.dump(reviews[:len(reviews)//5], open('data/business_reviews_test.json', 'w', encoding='utf8'))
+reviews_items = list(reviews.items())
+reviews_train = {k: v for k, v in reviews_items[len(reviews_items) // 5:]}
+reviews_test = {k: v for k, v in reviews_items[:len(reviews_items) // 5]}
+json.dump(reviews_train, open('data/business_reviews_train.json', 'w', encoding='utf8'))
+json.dump(reviews_test, open('data/business_reviews_test.json', 'w', encoding='utf8'))
 
 with open('data/corpus.json', 'w', encoding='utf8') as file:
     for review in corpus:
